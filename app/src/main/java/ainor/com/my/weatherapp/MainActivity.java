@@ -15,6 +15,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    // AsyncTask background process
+
     public class DownloadTask extends AsyncTask<String,Void,String> {
 
         @Override
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             HttpURLConnection urlConnection = null;
 
             try {
+
                 url = new URL(urls[0]);
 
                  urlConnection = (HttpURLConnection) url.openConnection();
@@ -56,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
             return "Failed";
         }
 
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Log.i("Website content", result);
+        }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.i("Result", result);
 
     }
 }
