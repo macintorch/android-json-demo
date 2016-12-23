@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -63,7 +66,18 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Log.i("Website content", result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+
+                String weatherInfo = jsonObject.getString("weather");
+
+                Log.i("Weather content", weatherInfo);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
